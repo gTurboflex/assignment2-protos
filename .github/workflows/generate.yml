@@ -40,9 +40,11 @@ jobs:
         run: |
           cd gen/go
           git init
+          git checkout -b main 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote add origin https://x-access-token:${GH_TOKEN}@github.com/gTurboflex/assignment2-generated.git
           git add .
           git commit -m "Auto-generated gRPC code"
+          # Теперь отправка точно сработает
           git push -f origin main
