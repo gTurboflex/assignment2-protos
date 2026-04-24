@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package payment;
+
+
+option go_package = "github.com/gTurboflex/assignment2-generated/payment";
+
+service PaymentService {
+  rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+}
+
+message PaymentRequest {
+  string order_id = 1;
+  int64 amount = 2;
+}
+
+message PaymentResponse {
+  int64 id = 1;
+  string transaction_id = 2;
+  string status = 3; // "Authorized" или "Declined"
+}
