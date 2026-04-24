@@ -19,19 +19,18 @@ jobs:
 
       - name: Install and Generate
         run: |
-          
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler
           go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
           go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-          
-          
           export PATH="$PATH:$(go env GOPATH)/bin"
           
+          #: создаем папку payment внутри gen/go
+          mkdir -p ./gen/go/payment
           
-          mkdir -p ./gen/go
-          protoc --go_out=./gen/go --go_opt=paths=source_relative \
-                 --go-grpc_out=./gen/go --go-grpc_opt=paths=source_relative \
+          # Указываем путь до этой папки в --go_out и --go-grpc_out
+          protoc --go_out=./gen/go/payment --go_opt=paths=source_relative \
+                 --go-grpc_out=./gen/go/payment --go-grpc_opt=paths=source_relative \
                  payment.proto
 
       - name: Push to Generated Repo
